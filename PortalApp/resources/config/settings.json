@@ -6,7 +6,7 @@
     "imageViewSize": 600,
     "imageInfoFlds": "",
     "portalInstance": "spwp",
-    "imageBaseUrl": null,
+    "imageBaseUrl": "http://10.2.22.30/",
     "collectionName": "Collection1",
     "defInitialView": "grid",
     "defMapType": "roadmap",
