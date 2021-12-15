@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 cd $(dirname $0)
 
-all_collections=(botany iz orn orn-en mam)
+all_collections=(iz orn orn-en mam ich botany)
 
 for t in ${all_collections[@]}; do
   ./0.sh $t >& 0.$t.log
