@@ -13,7 +13,7 @@ echo solr verion: $SOLR_VERSION
 echo core: $1
 echo target dir: $TARGET_SOLR_DIR
 ./solr-$SOLR_VERSION/bin/solr delete -c $1
-./solr-$SOLR_VERSION/bin/solr stop
+./solr-$SOLR_VERSION/bin/solr stop -all
 mkdir -p $TARGET_SOLR_DIR/$1
 cp -r build/cores/$1/core/* $TARGET_SOLR_DIR/$1
 cp build/cores/$1/web.xml solr-$SOLR_VERSION/server/solr-webapp/webapp/WEB-INF/web.xml 
