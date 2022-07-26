@@ -118,7 +118,7 @@ Ext.define('SpWebPortal.view.ImageView', {
 	var settings = settingsStore.getAt(0);
 	this.setCollectionName(settings.get('collectionName'));
 	this.setBaseUrl(settings.get('imageBaseUrl'));
-        this.setCollSettings(settings);
+	this.setCollSettings(settings);
 	this.setImgDescriptionFlds(this.initImgDescFlds(settings.get('imageInfoFlds')));
 	this.setPreviewSize(settings.get('imagePreviewSize'));
 	this.setViewSize(settings.get('imageViewSize'));

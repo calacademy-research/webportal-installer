@@ -26,7 +26,7 @@ $(SCHEMA_FILE): $(TOPDIR)/patch_schema_xml.py \
 		$(TOPDIR)/$(SOLR_DIST)/$(DEFAULT_SETS)/conf/$(SCHEMA_FILE) \
 		SolrFldSchema.xml
 	# Patching Solr schema with fields from Specify export.
-	python2 $^ > $@
+	python3 $^ > $@
 
 web.xml: $(TOPDIR)/patch_web_xml.py \
 		$(TOPDIR)/$(SOLR_DIST)/server/solr-webapp/webapp/WEB-INF/web.xml 

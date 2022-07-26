@@ -83,7 +83,8 @@ Ext.define('SpWebPortal.controller.ExpressSearch', {
         this.adjustFitToMapStuff();
         Ext.apply(Ext.getCmp('spwpexpcsvbtn'), {srch: 'expr'});
         var srchObj = solr.getSearchSpecs4J(images, maps, mainQ, filterToMap, this.getMatchAll(), dummy_geocoords, this.getWriteToCsv());
-        
+			//select?indent=on&version=2.2&fq=&rows=50&fl=*%2Cscore&qt=&wt=json&explainOther=&hl.fl=&q=
+			// query: contents:iris
         if (this.getWriteToCsv()) {
             //if not JSON
             //this.exportToCsv(url, this.getCsvFileName(mainQ));

@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */"""
 import sys
+import copy
 from xml.etree import ElementTree
 
 # See:
@@ -31,17 +32,36 @@ example_fields = root.findall('field')
 # get rid of _text_, id and _root_ flds.
 
 for f in example_fields:
-    if f.get('name') in ['_text_','id','_root_']:
+    if f.get('name') in ['_text_', 'id', '_root_']:
         root.remove(f)
 
-for f in specify_fields.findall('field'):
-    root.append(f.copy())
+new_type = '''
+    <!-- Defining customised data type for lower casing. -->
+    <fieldType name="text_lower" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.StandardTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+'''
+new_type_element = ElementTree.fromstring(new_type)
+root.append(new_type_element)
+
+for cur_field in specify_fields.findall('field'):
+    if cur_field.attrib['type'] == 'string':
+        cur_field.attrib['type'] = 'text_lower'
+    root.append(copy.copy(cur_field))
 
 # Delete all dynamic fields. For unknown reasons.
 ElementTree.SubElement(root, 'fieldType',
-                       attrib={'name':"ignored", 'class':"solr.StrField", 'indexed':"false", 'stored':"false", 'multiValued':"true"})
+                       attrib={'name': "ignored", 'class': "solr.StrField", 'indexed': "false", 'stored': "false",
+                               'multiValued': "true"})
 ElementTree.SubElement(root, 'dynamicField',
-                       attrib={'name':"*", 'type':"ignored"})
+                       attrib={'name': "*", 'type': "ignored"})
 
 # Change uniqueKey to spid.
 
@@ -54,5 +74,4 @@ for elem in schema.findall('copyField'):
     root.remove(elem)
 
 # Done.
-
-schema.write(sys.stdout)
+schema.write(sys.stdout.buffer)
